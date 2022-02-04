@@ -1,5 +1,5 @@
 import Button from './components/Button.js';
+import { Card } from './components/Card.js';
 
-const buttons = document.querySelectorAll('[data-js=Button]');
+Card();
 
-buttons.forEach(Button);
