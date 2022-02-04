@@ -5,9 +5,8 @@
   border-radius: 10px;
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr ;
+  grid-template-rows: auto 1fr;
   margin: 20px;
-  
 }
 .Card__picture {
   grid-column: 1 / 2;
@@ -25,5 +24,4 @@
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   align-self: center;
-  
 }
