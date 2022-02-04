@@ -26,11 +26,41 @@ export function Card() {
       <li class="Card__list-element">status: ${person.status}</li>
       <li>species: ${person.species}</li>
       <li>gender: ${person.gender}</li>
-      <li>location: ${person.location.name}</li>
+      <li id="location">location: ${person.location.name}</li>
       <li>number of episodes: ${person.episode.length}</li>
     </ul>
     `;
       cardContainer.append(cardElement);
     });
+    let locationList = [];
+    people.forEach(person => {
+      locationList = locationList.concat(person.location.name);
+    });
+    const locationSet = new Set(locationList);
+    buildFilter(locationSet);
+
+    function buildFilter(tags) {
+      const filterContainer = document.querySelector(
+        '[data-js="filterContainer"]'
+      );
+      tags.forEach(tag => {
+        const labelElement = document.createElement('label');
+        labelElement.className = 'filter__label';
+        labelElement.innerHTML = `
+       <input type="radio" name="location" data-js="radioButton">${tag}
+      `;
+        filterContainer.append(labelElement);
+      });
+    }
+    //   const radioButton = document.querySelector('[data-js="radioButton"]')
+    // radioButton.addEventListener('change', () => {
+    //   const labelElement = document.getElementsByClassName('filter__label')
+    //   const cardElement = cardContainer.getElementsByClassName('Card')
+    //   if(!document.getElementById('location').textContent.includes(labelElement.textContent)){
+    //     cardElement.classList.add('hidden')
+    //   } else {
+    //     cardElement.classList.remove('hidden')
+    //   }
+    // })
   }
 }
