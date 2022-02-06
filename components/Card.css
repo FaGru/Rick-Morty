@@ -28,20 +28,20 @@
   align-self: center;
   justify-self: center;
 }
-.Card__color--Male{
+.Card__color--Male {
   background-color: blue;
 }
-.Card__color--Female{
+.Card__color--Female {
   background-color: hotpink;
 }
-.filter-container{
+.filter-container {
   display: flex;
   margin: 10px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.filter__label{
+.filter__label {
   background-color: black;
   text-align: center;
   width: 250px;
@@ -54,7 +54,7 @@
   align-content: center;
   cursor: pointer;
 }
-.filter__label:hover{
+.filter__label:hover {
   color: black;
   background-color: wheat;
   border: 2px solid black;

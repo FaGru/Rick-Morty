@@ -15,63 +15,66 @@ export function Card() {
   }
 
   function createObject(people) {
-    let cards = []
+    let cards = [];
     people.forEach(person => {
-        cards = cards.concat(
-          {
-            name: `${person.name}`,
-            image: `${person.image}`,
-            status: `${person.status}`,
-            species: `${person.species}`,
-            gender: `${person.gender}`,
-            location: `${person.location.name}`,
-            episodes:`${person.episode.length}`,
-          }
-        )
-      })
+      cards = cards.concat({
+        name: `${person.name}`,
+        image: `${person.image}`,
+        status: `${person.status}`,
+        species: `${person.species}`,
+        gender: `${person.gender}`,
+        location: `${person.location.name}`,
+        episodes: `${person.episode.length}`,
+      });
+    });
     let locationList = [];
     people.forEach(person => {
-    locationList = locationList.concat(person.location.name);
+      locationList = locationList.concat(person.location.name);
     });
-    locationList.unshift('all')
+    locationList.unshift('all');
     const locationSet = new Set(locationList);
 
     buildFilter(locationSet);
 
+    let currentName = '';
 
-    let currentName = "";
-
-    const nameInput = document.querySelector('[data-js="name-filter-input"]')
-    nameInput.addEventListener('input', () =>{
+    const nameInput = document.querySelector('[data-js="name-filter-input"]');
+    nameInput.addEventListener('input', () => {
       currentName = nameInput.value;
-      renderCards()
-      console.log(currentName)
-    })
+      renderCards();
+      console.log(currentName);
+    });
 
     let currentFilter = 'all';
 
-    const filterContainer = document.querySelector('[data-js="filterContainer"]')
+    const filterContainer = document.querySelector(
+      '[data-js="filterContainer"]'
+    );
     filterContainer.addEventListener('change', () => {
-    currentFilter = filterContainer.elements.location.value;
-    renderCards();
-    })
+      currentFilter = filterContainer.elements.location.value;
+      renderCards();
+    });
 
     renderCards();
-
 
     function renderCards() {
-    const cardContainer = document.querySelector('[data-js="cardContainer"]')
-    cardContainer.innerHTML = '';
+      const cardContainer = document.querySelector('[data-js="cardContainer"]');
+      cardContainer.innerHTML = '';
 
-    const nameFilteredCards = cards.filter(card => card.name.includes(currentName) || currentName == "")
+      const nameFilteredCards = cards.filter(
+        card => card.name.includes(currentName) || currentName == ''
+      );
 
-    nameFilteredCards
-      .filter(card => card.location.includes(currentFilter) || currentFilter === 'all')
-      .forEach(card => {
-        const cardElement = document.createElement('article');
-        cardElement.className = 'Card';
-        cardElement.classList.add(`Card__color--${card.gender}`);
-        cardElement.innerHTML = `
+      nameFilteredCards
+        .filter(
+          card =>
+            card.location.includes(currentFilter) || currentFilter === 'all'
+        )
+        .forEach(card => {
+          const cardElement = document.createElement('article');
+          cardElement.className = 'Card';
+          cardElement.classList.add(`Card__color--${card.gender}`);
+          cardElement.innerHTML = `
           <img class="Card__picture" src=${card.image} height="110" width="110" alt="">
           <h2 class="Card__name">${card.name}</h2>
           <ul class="Card__list">
@@ -81,20 +84,22 @@ export function Card() {
              <li class="Card__list-element" id="location">location: ${card.location}</li>
              <li class="Card__list-element">number of episodes: ${card.episodes}</li>
           </ul>`;
-         cardContainer.append(cardElement);
-      })
+          cardContainer.append(cardElement);
+        });
     }
 
     function buildFilter(tags) {
-       const filterContainer = document.querySelector('[data-js="filterContainer"]')
-       tags.forEach(tag => {
-       const labelElement = document.createElement('label');
-       labelElement.className = 'filter__label';
-       labelElement.innerHTML = `
+      const filterContainer = document.querySelector(
+        '[data-js="filterContainer"]'
+      );
+      tags.forEach(tag => {
+        const labelElement = document.createElement('label');
+        labelElement.className = 'filter__label';
+        labelElement.innerHTML = `
         <input class="hidden filter__input" type="radio" name="location" value=${tag} data-js="radioButton">${tag}
          `;
-       filterContainer.append(labelElement);
-       });
+        filterContainer.append(labelElement);
+      });
     }
   }
 }
