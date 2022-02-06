@@ -29,7 +29,6 @@ export function Card() {
           }
         )
       })
-      console.log(cards)
     let locationList = [];
     people.forEach(person => {
     locationList = locationList.concat(person.location.name);
@@ -38,6 +37,16 @@ export function Card() {
     const locationSet = new Set(locationList);
 
     buildFilter(locationSet);
+
+
+    let currentName = "";
+
+    const nameInput = document.querySelector('[data-js="name-filter-input"]')
+    nameInput.addEventListener('input', () =>{
+      currentName = nameInput.value;
+      renderCards()
+      console.log(currentName)
+    })
 
     let currentFilter = 'all';
 
@@ -54,20 +63,23 @@ export function Card() {
     const cardContainer = document.querySelector('[data-js="cardContainer"]')
     cardContainer.innerHTML = '';
 
-    cards
+    const nameFilteredCards = cards.filter(card => card.name.includes(currentName) || currentName == "")
+
+    nameFilteredCards
       .filter(card => card.location.includes(currentFilter) || currentFilter === 'all')
       .forEach(card => {
         const cardElement = document.createElement('article');
         cardElement.className = 'Card';
+        cardElement.classList.add(`Card__color--${card.gender}`);
         cardElement.innerHTML = `
-          <img class="Card__picture" src=${card.image} height="100" width="100" alt="">
+          <img class="Card__picture" src=${card.image} height="110" width="110" alt="">
           <h2 class="Card__name">${card.name}</h2>
           <ul class="Card__list">
              <li class="Card__list-element">status: ${card.status}</li>
-             <li>species: ${card.species}</li>
-             <li>gender: ${card.gender}</li>
-             <li id="location">location: ${card.location}</li>
-             <li>number of episodes: ${card.episodes}</li>
+             <li class="Card__list-element">species: ${card.species}</li>
+             <li class="Card__list-element">gender: ${card.gender}</li>
+             <li class="Card__list-element" id="location">location: ${card.location}</li>
+             <li class="Card__list-element">number of episodes: ${card.episodes}</li>
           </ul>`;
          cardContainer.append(cardElement);
       })
@@ -79,7 +91,7 @@ export function Card() {
        const labelElement = document.createElement('label');
        labelElement.className = 'filter__label';
        labelElement.innerHTML = `
-        <input type="radio" name="location" value=${tag} data-js="radioButton">${tag}
+        <input class="hidden filter__input" type="radio" name="location" value=${tag} data-js="radioButton">${tag}
          `;
        filterContainer.append(labelElement);
        });
