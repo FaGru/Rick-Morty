@@ -3,15 +3,19 @@ export function Card() {
   createCharacters();
 
   async function createCharacters() {
-    try {
-      const response = await fetch(
-        'https://rickandmortyapi.com/api/character?page=1%22'
-      );
-      const data = await response.json();
-      createObject(data.results);
-    } catch (error) {
-      console.log(error);
-    }
+    const baseUrl = 'https://rickandmortyapi.com/api/character?page=';
+    const numPages = 5;
+
+    const urls = Array(numPages)
+      .fill() // [undefined, undefined, ...]
+      .map((_, index) => baseUrl + (index + 1));
+
+    const promises = urls.map(url => fetch(url).then(res => res.json()));
+
+    Promise.all(promises).then(pages => {
+      const people = pages.flatMap(page => page.results);
+      createObject(people);
+    });
   }
 
   function createObject(people) {
