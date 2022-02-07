@@ -41,23 +41,5 @@
   background-color: hotpink;
 }
 .filter-container {
-  display: flex;
-  margin: 10px;
-  flex-direction: column;
-  align-items: center;
-}
-.filter__label {
-  background-color: black;
-  text-align: center;
-  width: 250px;
-  margin: 2px;
-  color: aliceblue;
-  border: 2px solid wheat;
-  border-radius: 0px;
-  cursor: pointer;
-}
-.filter__label:hover {
-  color: black;
-  background-color: wheat;
-  border: 2px solid black;
+  margin-top: 10px;
 }
