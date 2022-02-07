@@ -10,10 +10,16 @@
   </head>
   <body>
     <h1>Rick and Morty Characters</h1>
-    <form data-js="filterContainer" class="filter-container">
-      <label for="name-filter">search name:</label>
+    <form>
+      <label for="name-filter">Search name:</label>
       <input data-js="name-filter-input" id="name-filter" type="text" /><br />
-      <p>LocationFilter</p>
+      <label for="location-filter">Location-Filter:</label>
+      <select
+        data-js="filterContainer"
+        class="filter-container"
+        name="location-filter"
+        id="location-filter"
+      ></select>
     </form>
     <section class="card__container" data-js="cardContainer"></section>
   </body>

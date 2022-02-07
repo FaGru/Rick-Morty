@@ -46,7 +46,6 @@ export function Card() {
     nameInput.addEventListener('input', () => {
       currentName = nameInput.value;
       renderCards();
-      console.log(currentName);
     });
 
     let currentFilter = 'all';
@@ -55,7 +54,8 @@ export function Card() {
       '[data-js="filterContainer"]'
     );
     filterContainer.addEventListener('change', () => {
-      currentFilter = filterContainer.elements.location.value;
+      console.log(filterContainer.value);
+      currentFilter = filterContainer.value;
       renderCards();
     });
 
@@ -66,7 +66,9 @@ export function Card() {
       cardContainer.innerHTML = '';
 
       const nameFilteredCards = cards.filter(
-        card => card.name.includes(currentName) || currentName == ''
+        card =>
+          card.name.toLowerCase().includes(currentName.toLowerCase()) ||
+          currentName == ''
       );
 
       nameFilteredCards
@@ -97,10 +99,11 @@ export function Card() {
         '[data-js="filterContainer"]'
       );
       tags.forEach(tag => {
-        const labelElement = document.createElement('label');
-        labelElement.className = 'filter__label';
+        const labelElement = document.createElement('option');
+        labelElement.className = 'filter__label filter__input';
+        labelElement.value = tag;
         labelElement.innerHTML = `
-        <input class="hidden filter__input" type="radio" name="location" value=${tag} data-js="radioButton">${tag}
+        ${tag}
          `;
         filterContainer.append(labelElement);
       });
